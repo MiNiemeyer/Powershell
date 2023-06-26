@@ -1,7 +1,8 @@
 Add-Type -AssemblyName PresentationCore,PresentationFramework
+$verzeichnis = "H:\Analyse"
 
-$Dateien =Get-ChildItem -Path "\\192.168.0.50\Bilder" -Name -File -Recurse -Filter "IMG_20190118_203431.jpg"
-$enthalten = $Dateien -contains "IMG_20190118_203431.jpg"
+$Dateien = Get-ChildItem -Path $verzeichnis  -Recurse | ForEach-Object {Split-Path $_.FullName -Leaf}
+$enthalten = $Dateien -contains "02.01.2017.xlsx"
 
 $ButtonType = [System.Windows.MessageBoxButton]::OK
 $MessageboxTitle = "Dateisuche"
@@ -14,4 +15,4 @@ if ($enthalten) {
     $MessageIcon = [System.Windows.MessageBoxImage]::Warning
 }
 [System.Windows.MessageBox]::Show($Messageboxbody,$MessageboxTitle,$ButtonType,$MessageIcon)
-# ::Show($Messageboxbody,$MessageboxTitle,$ButtonType,$messageicon)
+
